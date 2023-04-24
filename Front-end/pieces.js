@@ -1,6 +1,10 @@
-import { ajoutListenersAvis } from "./avis.js";
+import { ajoutListenersAvis, ajoutListenerEnvoyerAvis } from "./avis.js";
 
-const pieces = await fetch("pieces-autos.json").then((pieces) => pieces.json());
+const reponse = await fetch("http://localhost:8081/pieces/");
+const pieces = await reponse.json();
+
+ajoutListenerEnvoyerAvis();
+
 const sectionFiches = document.querySelector(".fiches");
 
 function genererPieces(pieces) {
@@ -53,7 +57,6 @@ function genererPieces(pieces) {
 	}
 	ajoutListenersAvis();
 }
-
 genererPieces(pieces);
 
 // Trier par prix croissant
