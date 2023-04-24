@@ -1,3 +1,5 @@
+import { ajoutListenersAvis } from "./avis.js";
+
 const pieces = await fetch("pieces-autos.json").then((pieces) => pieces.json());
 const sectionFiches = document.querySelector(".fiches");
 
@@ -42,7 +44,14 @@ function genererPieces(pieces) {
 			? "En stock"
 			: "Rupture de stock";
 		pieceElement.appendChild(disponibiliteElement);
+
+		// Boutons Avis
+		const avisBouton = document.createElement("button");
+		avisBouton.dataset.id = article.id;
+		avisBouton.textContent = "Afficher les avis";
+		pieceElement.appendChild(avisBouton);
 	}
+	ajoutListenersAvis();
 }
 
 genererPieces(pieces);
@@ -92,8 +101,6 @@ for (let i = pieces.length - 1; i >= 0; i--) {
 		noms.splice(i, 1);
 	}
 }
-console.log(noms);
-
 const abordablesElements = document.createElement("ul");
 for (let i = 0; i < noms.length; i++) {
 	const nomElement = document.createElement("li");
